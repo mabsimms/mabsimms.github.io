@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Integration through Specification &middot; Random Musings</title>
+    <meta name="generator" content="Hugo 0.40.2" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Mark Simms">
+    
+      <meta name="description" content="">
+    
+    
+    <link rel="canonical" href="https://mabsimms.github.io/2018/05/09/integration-through-specification/"/>
+    <link rel="icon" href="https://mabsimms.github.io/favicon.ico">
+    <link rel="apple-touch-icon" href="https://mabsimms.github.io/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://mabsimms.github.io/css/style.css">
+    <link rel="stylesheet" href="https://mabsimms.github.io/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://mabsimms.github.io/css/monokai.css">
+    <link rel="stylesheet" href="https://mabsimms.github.io/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Integration through Specification" />
+<meta property="og:description" content="Successful delivery of an IoT project at scale brings together multiple areas of expertise, processes and organizations. Each of the individual components carry with them assumptions and assertions about how the world works, and how product is designed, implemented (or manufactured).
+Take the simple example of a home thermostat - involving embedded device manufacture, firmware development and maintenance, cloud connectivity, distibuted back-end services and mobile applications. In the small this could involve a small development team adapting off the shelf hardware; in the large this could be multiple divisions of a multi-national corporation outsourcing individual sub-components with strict information and awareness firewalls between delivery teams." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mabsimms.github.io/2018/05/09/integration-through-specification/" />
+
+
+
+<meta property="article:published_time" content="2018-05-09T11:22:54-07:00"/>
+
+<meta property="article:modified_time" content="2018-05-09T11:22:54-07:00"/>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Integration through Specification">
+<meta itemprop="description" content="Successful delivery of an IoT project at scale brings together multiple areas of expertise, processes and organizations. Each of the individual components carry with them assumptions and assertions about how the world works, and how product is designed, implemented (or manufactured).
+Take the simple example of a home thermostat - involving embedded device manufacture, firmware development and maintenance, cloud connectivity, distibuted back-end services and mobile applications. In the small this could involve a small development team adapting off the shelf hardware; in the large this could be multiple divisions of a multi-national corporation outsourcing individual sub-components with strict information and awareness firewalls between delivery teams.">
+
+
+<meta itemprop="datePublished" content="2018-05-09T11:22:54-07:00" />
+<meta itemprop="dateModified" content="2018-05-09T11:22:54-07:00" />
+<meta itemprop="wordCount" content="1983">
+
+
+
+<meta itemprop="keywords" content="iot,anti-pattern," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Integration through Specification"/>
+<meta name="twitter:description" content="Successful delivery of an IoT project at scale brings together multiple areas of expertise, processes and organizations. Each of the individual components carry with them assumptions and assertions about how the world works, and how product is designed, implemented (or manufactured).
+Take the simple example of a home thermostat - involving embedded device manufacture, firmware development and maintenance, cloud connectivity, distibuted back-end services and mobile applications. In the small this could involve a small development team adapting off the shelf hardware; in the large this could be multiple divisions of a multi-national corporation outsourcing individual sub-components with strict information and awareness firewalls between delivery teams."/>
+<meta name="twitter:site" content="@mabsimms"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://mabsimms.github.io/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://mabsimms.github.io/css/images/logo.png')"></i>
+          
+          <span class="site-title">Random Musings</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://mabsimms.github.io/">Home</a>
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://mabsimms.github.io/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://mabsimms.github.io/categories/">Categories</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://mabsimms.github.io/css/images/avatar.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://mabsimms.github.io/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://mabsimms.github.io/">Home</a></td>
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mabsimms.github.io/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mabsimms.github.io/categories/">Categories</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://mabsimms.github.io/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://www.gravatar.com/avatar/9b46ce9ba15800763eaf7b4607c6a392?s=100&d=identicon"/>
+      
+      <h2 id="name">Mark Simms</h2>
+      <h3 id="title">Cloudy with a side of Nerdy </h3>
+      <span id="location"><i class="fa fa-map-marker"></i>Seattle</span>
+      
+          <a id="follow" href="https://github.com/mabsimms">
+              Follow
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        2
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          2
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/mabsimms" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//linkedin.com/in/marksimms2" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//twitter.com/mabsimms" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+
+
+          <td><a href="https://mabsimms.github.io/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+
+        <header class="article-header">
+    <a href="https://mabsimms.github.io/2018/05/09/integration-through-specification/">
+    <h1 class="article-title" itemprop="name">
+        Integration through Specification
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2018-05-09 11:22:54 -0700 PDT" itemprop="datePublished">2018-05-09</time>
+            &middot;
+            1983
+            words
+            &middot;
+            10
+            minute read
+        </div>
+        
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://mabsimms.github.io/tags/iot">iot</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://mabsimms.github.io/tags/anti-pattern">anti-pattern</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<p>Successful delivery of an IoT
+project at scale brings together multiple areas of expertise, processes and
+organizations.  Each of the individual components carry with them
+assumptions and assertions about how the world works, and how product is
+designed, implemented (or manufactured).</p>
+
+<p>Take the simple example of a home thermostat - involving embedded device
+manufacture, firmware development and maintenance, cloud connectivity,
+distibuted back-end services and mobile applications.  In the small this
+could involve a small development team adapting off the shelf hardware; in
+the large this could be multiple divisions of a multi-national corporation
+outsourcing individual sub-components with strict information and awareness
+firewalls between delivery teams.</p>
+
+<p>This, more so than any other anti-pattern in this series, has been at the
+heart of challenging projects, and is the hardest to fix when timelines are
+short and tempers are high.  Having a coordinated engineering and
+communication process across the end-to-end delivery experience is crucial
+in the efficient and successful delivery of IoT experiences at scale.</p>
+
+<p>Large scale IoT projects involve multiple moving parts:</p>
+
+<ul>
+<li>Embedded devices (hardware design &amp; manufacturing)</li>
+<li>Firmware (software for small connected devices)</li>
+<li>Internet connectivity (direct, proxied, subsumed cost?)</li>
+<li>Mobile applications (software for a range of battery powered supercomputers)</li>
+<li>Services (typically cloud-hosted)</li>
+<li>Data (hot, warm and cold)</li>
+</ul>
+
+<p>Few companies (even Fortune 50 multi-nationals) have the in-house expertise do
+to all of this in a coordinated fashion with a composed engineering process.
+Let&rsquo;s take an anonymized (mashed together for five or six different projects)
+perspective on launch day, and a reasonable set of decisions (in isolation of
+each other) that led to a public meltdown.</p>
+
+<p>The devices have been built and programmed with care, and are flying off of
+store shelves.  The Internet is abuzz with how &ldquo;awesomez is the new thing&rdquo;.<br />
+Everything is going well, until suddenly it isn&rsquo;t.  Back end services are
+tipping over, users are reporting non-functional devices, and Twitter is
+abuzz with &ldquo;this app is #$%#$% slow&rdquo;.</p>
+
+<p>The diagram below outlines the organizational structure that led to the
+precipice of success (and is a very common formula):</p>
+
+<ul>
+<li>The <strong>Brand Owner</strong> and <strong>Project Management Organization</strong>.  Contoso corp,
+the owner of our fictious IoT experience decided to follow their traditional
+playbook, and work through an outsourced integrated model that&rsquo;s been very
+succesful for prior projects.<br /></li>
+</ul>
+
+<p>They run the project delivery through a central Project Management Office (PMO)
+staffed with business analysts who are experts at understanding projects,
+timelines and contract management.  This team produces very well written
+specifications on the expected behavior, experiences and expected timelines.
+Vendors are sourced, contracts are reviewed and signed, and development begins.</p>
+
+<p>Individual vendors are held to strict timelines for completion of tasks and
+functional requirements, with bi-monthly checkpoints and demonstrations of
+progress.</p>
+
+<ul>
+<li><p>The <strong>Hardware Manufacturer</strong> and <strong>Firmware Developer</strong>.  <em>Fabrikam</em> is a
+small but experienced developer of embedded systems (hardware platforms), and
+is branching out into providing firmware and ongoing support for its devices.<br />
+They are contracted with Contoso to deliver devices and firmware per the
+specification leading up to launch day.</p></li>
+
+<li><p>The <strong>Digital Marketing Agency</strong> and <strong>Back End Service Developer</strong>.
+<em>Proseware</em> is a boutique digital marketing agency that won the contract to
+develop the turn key web site and supporting backing services for the launch.</p></li>
+</ul>
+
+<p>They have built a solid and successful business around truly compelling digital
+experiences, and have a team of experienced developers used to working on and
+delivering in the face of shifting requirements.  This is their first
+large-scale project for end to end connectivity and device interaction.</p>
+
+<p>Folks who have been through this experience before will have already spotted
+the red flags in this seemingly innocuous narrative (after all, there are only
+three primary players in this supply chain, and automobiles are routinely built
+with thousands of suppliers&hellip;).  Let&rsquo;s tease apart the common failure modes or
+gaps.</p>
+
+<h2 id="integration-via-specification">Integration via Specification</h2>
+
+<p>Specifications are a durable proxy for communication of intent.  They are
+wonderful and necessary things, but are susceptible to subtle interpretations
+of detail or intent.  Without clear, open and defined channels of communication
+between the various players involved in the end to end delivery these gaps
+become enshrined in code and content.</p>
+
+<p>One common anti-pattern I&rsquo;ve observed when working with outsourced development
+efforts is the fire-and-forget approach where specs are thrown over the wall
+and functional code/hardware is thrown back (or even worse, when vendors
+involved in the development of an integrated solution are contractually
+barred from communciating with each other - even by proxying through the PMO).</p>
+
+<p>Let&rsquo;s take a simple example from a project I was asked to assist with.  The
+protocol definition for how devices would communicate with back end services
+was defined in a well written specification, listing each expected message
+type and response.  The firmware team developed the message for updating the
+current location of a device as follows:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> Location
+{
+    <span style="color:#66d9ef">int</span> altitude;
+    <span style="color:#66d9ef">int</span> heading;
+    ...
+}</code></pre></div>
+
+<p>The back-end services team read the same specification and came up with their
+interpretation of the same specification:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[StructLayout(LayoutKind.Sequential, Pack=1)]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Location</span>
+{<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">    [MarshalAs(UnmanagedType.U4)]</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> altitude;<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">
+</span><span style="color:#a6e22e">    [MarshalAs(UnmanagedType.U4)]</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> heading;
+}</code></pre></div>
+
+<p>This bug was happily caught through code review when comparing some erroneous
+simulation results, but had it slipped into production could have caused some
+rather nasty reactions when the altitude value was accidentally marshalled as
+an unsigned integer.</p>
+
+<aside class="admonition note">
+	<div class="note-icon">
+		
+	</div>
+	
+	
+	<div class="admonition-content"><p>A better approach here would have been a formal specification of the
+<strong>versioned</strong> communication protocol in something like Bond or Protobuf, held
+in a common repository managed by the brand owner, which all of the development
+teams could use a common asset.</p>
+</div>
+</aside>
+
+<p>Other forms of this anti-pattern being the root cause of overall systemic
+failure are sprinkled through the rest of this blog series.</p>
+
+<h2 id="trusted-but-unverified-lack-of-technical-autocracy">Trusted but Unverified (Lack of Technical Autocracy).</h2>
+
+<p>The two key red flags in the description of the Project Management Office for
+Contoso were:</p>
+
+<ul>
+<li><p>The lack of engineering processes, or technical governance over the
+delivery of a highly integrated, public experience with <strong>brand exposure</strong>.</p></li>
+
+<li><p>Accountability for (strictly) functional requirements.</p></li>
+</ul>
+
+<p>This is not to say that project management offices and procedures aren&rsquo;t
+appropriate or necessary, but rather that given the usual degree of exposure
+for a public IoT solution and tight delivery timeframes, the Brand Owner needs
+technical eyeballs and delivery accountability on the solution and how it is
+delivered (which in turn needs to be baked into the contracts).</p>
+
+<p>Furthermore, non-functional requirements (<strong>scale</strong>, <strong>availability</strong> and
+<strong>manageability</strong>) need to be built into the delivery timeframe and contractual
+accountabilities.  While these can be (and often have to be) retrofitting into
+solutions when performance or stability issues are discovered (unfortunately,
+often on launch day), this is a very expensive way of doing business.</p>
+
+<aside class="admonition note">
+	<div class="note-icon">
+		
+	</div>
+	
+	
+	<div class="admonition-content"><p>An engineering budget for non-functional requirements needs to be baked into
+budgets, contracts, testing and project review.  The more succesful your
+product or project, the more important this is.</p>
+</div>
+</aside>
+
+<p>Project milestone and progress reviews need to incorporate non-functional
+goals, based on shared, live dashboards.  These need to be (as soon as is
+practical) based on integrated end-to-end evaluations.</p>
+
+<h2 id="one-methodology-to-rule-them-all">One Methodology to Rule Them All</h2>
+
+<p>Forcing very different cadences of software development (mobile, services,
+embedded) into one management methodology to &ldquo;rule them all&rdquo;.  Different
+component teams in an overall delivery project are naturally going to be
+delivering at different cadences with different risk levels.</p>
+
+<p>Attempting to force all of these component teams into the same engineering
+process or management cadence leads to unnatural behavior.  For example,
+firmware releases have an inherently higher risk than cloud service releases
+(especially if devices have limited over-the-air update capability):</p>
+
+<ul>
+<li><p>A cadence that tries to force alignment with a firmware ship cycle may<br />
+artificially inhibit the ability of cloud service and mobile teams to iterate quickly.</p></li>
+
+<li><p>A cadence that tries to force alignment with cloud services ship cycle may
+push risky release gates into the firmware development team.</p></li>
+</ul>
+
+<p>Any overall development and governance methodology needs to enable each class
+ of workstream to optimize for their risk level and desired release cadence,
+ together with an alignment process and structure to coordinate shared dependencies
+ and work through priority inversion challenges.</p>
+
+<h2 id="no-process-to-balance-competing-engineering-priorities">No Process to Balance Competing Engineering Priorities</h2>
+
+<p>Leading out of one methodology to rule them all is the need for a mechanism or process
+to balance competing engineering priorities.  This will happen at both a component
+or stream level, or a global system level (often centered on the issue of priority inversion).</p>
+
+<p>Without a structure or approach to discuss and balance competing priorites, projects often
+fall prey to local optima that lead to unpleasant end user experiences.</p>
+
+<h2 id="divergent-engineering-systems">Divergent Engineering Systems</h2>
+
+<p>Outsourcing contracts rarely dictate choices or composition of engineering
+systems.  This often leads to a divergent mess of different source code
+control systems, build pipelines, versioning mechanisms, deployment,
+configuration management and integrated testing approaches.</p>
+
+<p>Given the impracticality of global simultaneous updates to individual systems
+(also known as instantly shipping and propagating your bugs to all of your
+users at the same time), there will always be multiple versions of each
+component active (unless the solution allows for planned downtime).</p>
+
+<p>With every moving part or component, the impedence for delivering a functional
+end to end experience increases exponentially.  Any system that requires
+human interaction to create a functional set of builds (especially in an
+environment where multiple versions of each component are active at the same
+time) increases risk and the time required to add a feature or fix a bug.</p>
+
+<aside class="admonition note">
+	<div class="note-icon">
+		
+	</div>
+	
+	
+	<div class="admonition-content"><p>One project I was helping out with a while back was being built between multiple
+internal teams and outsourced vendors.  Due to contractual obligations (or more
+precisely, the lack thereof), none of the individual component teams (firmware,
+mobile or cloud) had any common repositories or build systems.</p>
+
+<p>To compound the problem, there was no common convention to track version/build
+numbers in telemetry, nor any way to trace those version or build numbers back to
+a specific branch or build.  Needless to say, diagnosing live site isses was an
+adventure :)</p>
+</div>
+</aside>
+
+<h2 id="testing-in-isolation">Testing in Isolation</h2>
+
+<p>One of the common failure modes for a highly divergent development and delivery
+approach is testing in isolation, where the first time that all of the pieces
+of a solution (devices, services and mobile) come together under load is at
+production launch.</p>
+
+<p>Subtle differences in behavior and semantics between real devices, and load
+generation / simulation environments can produce unpleasant production
+surprises (also known as low-latency learning moments).</p>
+
+<aside class="admonition note">
+	<div class="note-icon">
+		
+	</div>
+	
+	
+	<div class="admonition-content"><p>One project I was asked to help out really brought this anti-pattern home.  The
+particular project was a launch event (think marketing event or sporting event) that
+had melted down under conditions of extreme success.</p>
+
+<p>During the retrospective it came out that the site had been load tested to 2x
+projected peak volume, but the load testing engine was multiplexing load through
+the same TCP connections. The site had plenty of backend capacity (web servers,
+databases, etc) but hadn&rsquo;t allocated enough front end capacity for all of the inbound
+connections.</p>
+</div>
+</aside>
+
+<h2 id="no-single-pane-of-glass">No Single Pane of Glass</h2>
+
+<p>IoT solutions are complex systems with multiple moving parts interacting
+in dynamic, and osmetimes unanticipated ways.  Their complexity defies easy
+comprehension without timely, accurate and consumable data that correlates
+behavior and activity across systems.</p>
+
+<p>The single greatest barrier I&rsquo;ve encountered when attempting to remediate or
+resolve performance or availability issues with deployed applications is the
+lack of a single pane of glass that allows all of the development and
+operations teams involved in the end to end experience to make <strong>informed
+data driven engineering decisions</strong>.</p>
+
+<p>This is a fairly nuanced and complicated topic, and I&rsquo;ll cover it in another
+blog series.  In terms of patterns, the key thing to bear in mind is the need
+to allocate an engineering budget to develop and evolve a monitoring and
+diagnostics data pipeline.</p>
+
+<aside class="admonition note">
+	<div class="note-icon">
+		
+	</div>
+	
+	
+	<div class="admonition-content"><p>Production diagnostics without a single pane of glass (also known as &ldquo;guessing&rdquo;)
+is a painful exercise, fraught with uncertainty, pain and suffering.  Production
+diagnostics with multiple panes of glass, each isolated to an individual component
+team (also known as &ldquo;conditions for blamestorming&rdquo;) is a compounded exercise in
+uncertainty and frustration.</p>
+</div>
+</aside>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://mabsimms.github.io/2018/05/09/integration-through-specification/" data-id="1d9992defb930b45a4bfd48baee7be97" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://mabsimms.github.io/2018/05/09/integration-through-specification/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://mabsimms.github.io/2018/05/09/anti-patterns-for-internet-of-things-applications/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Anti-Patterns for Internet of Things Applications</div>
+    </a>
+    
+
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "mabsimms" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mabsimms.github.io/2018/05/09/integration-through-specification/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-title"><a href="https://mabsimms.github.io/2018/05/09/integration-through-specification/" class="title">Integration through Specification</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-05-09 11:22:54 -0700 PDT" itemprop="datePublished">2018-05-09</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mabsimms.github.io/2018/05/09/anti-patterns-for-internet-of-things-applications/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-title"><a href="https://mabsimms.github.io/2018/05/09/anti-patterns-for-internet-of-things-applications/" class="title">Anti-Patterns for Internet of Things Applications</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-05-09 11:20:14 -0700 PDT" itemprop="datePublished">2018-05-09</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mabsimms.github.io/tags/anti-pattern">
+                    anti-pattern
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mabsimms.github.io/tags/iot">
+                    iot
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://mabsimms.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://mabsimms.github.io/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>
